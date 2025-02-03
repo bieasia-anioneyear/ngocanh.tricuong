@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="mx-5">
       <div className="max-w-[400px] mx-auto mb-20">
-        <Image src="./photo.png" alt="music" width={1000} height={1000} />
+        <Image src="/ngocanh.tricuong/photo.png" alt="music" width={1000} height={1000} />
       </div>
 
       <button
@@ -65,7 +65,7 @@ export default function Home() {
           height={80}
           waveColor="#1F509A"
           progressColor="#7695FF"
-          url="./music.mp3"
+          url="/ngocanh.tricuong/music.mp3"
           onReady={onReady}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
@@ -77,9 +77,6 @@ export default function Home() {
           cursorColor="transparent"
           dragToSeek={true}
           autoCenter={true}
-          onAudioprocess={(ws, currentTime) => {
-            console.log(ws, currentTime)
-          }}
         />
       </div>
     </div>
