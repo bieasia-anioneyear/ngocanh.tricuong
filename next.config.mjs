@@ -1,12 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  basePath: '/public',
+  // basePath: '/ngocanh.tricuong',
   images: {
     unoptimized: true,
-  },
-  experimental: {
-    turbo: {},
   },
 }
 
