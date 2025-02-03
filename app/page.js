@@ -51,13 +51,19 @@ export default function Home() {
         <Image src="/ngocanh.tricuong/photo.png" alt="music" width={1000} height={1000} />
       </div>
 
-      <button
-        className="my-3 w-16 h-16 rounded-full bg-[#1F509A] flex items-center justify-center"
-        onClick={onPlayPause}
-        title="Play/Pause"
-      >
-        {isPlaying ? <PauseIcon /> : <PlayIcon />}
-      </button>
+      <div className="flex items-center">
+        <button
+          className="my-3 w-16 h-16 rounded-full bg-[#1F509A] flex items-center justify-center"
+          onClick={onPlayPause}
+          title="Play/Pause"
+        >
+          {isPlaying ? <PauseIcon /> : <PlayIcon />}
+        </button>
+        <div className="ml-3 flex flex-col">
+          <span>Tên bài hát</span>
+          <span className="text-sm text-gray-500">Ca sĩ: Ngọc Éng</span>
+        </div>
+      </div>
 
       <div className="relative">
         <div className="bg-black px-0.5 mr-2 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">{duration}</div>
