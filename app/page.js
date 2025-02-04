@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="mx-5 mt-5">
       <div className="max-w-[400px] mx-auto mb-14">
-        <Image src="/ngocanh.tricuong/photo.png" alt="music" width={1000} height={1000} />
+        <Image src="/ngocanh.tricuong/photo.jpg" alt="music" width={1000} height={1000} />
       </div>
 
       <div className="flex items-center">
@@ -66,7 +66,9 @@ export default function Home() {
       </div>
 
       <div className="relative">
-        <div className="bg-black px-0.5 mr-2 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">{duration}</div>
+        <div className="dark:bg-black bg-white px-0.5 mr-2 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
+          {duration}
+        </div>
         <WavesurferPlayer
           height={80}
           waveColor="#1F509A"
