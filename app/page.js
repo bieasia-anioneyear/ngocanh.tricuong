@@ -47,8 +47,8 @@ export default function Home() {
 
   return (
     <div className="mx-5 mt-5">
-      <div className="max-w-[400px] mx-auto mb-14">
-        <Image src="/ngocanh.tricuong/photo.jpg" alt="music" width={1000} height={1000} />
+      <div className="max-w-[400px] mx-auto my-14">
+        <Image src="/ngocanh.tricuong/photo.png" alt="music" width={1000} height={1000} />
       </div>
 
       <div className="flex items-center">
