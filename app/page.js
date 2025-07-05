@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="mx-5 mt-5">
       <div className="max-w-[400px] mx-auto my-14">
-        <Image src="/ngocanh.tricuong/photo.png" alt="music" width={1000} height={1000} />
+        <Image src="/photo.png" alt="music" width={1000} height={1000} />
       </div>
 
       <div className="flex items-center">
@@ -60,7 +60,7 @@ export default function Home() {
           {isPlaying ? <PauseIcon /> : <PlayIcon />}
         </button>
         <div className="ml-3 flex flex-col">
-          <span>Tên bài hát</span>
+          <span>Phép màu</span>
           <span className="text-sm text-gray-500">Ca sĩ: Ngọc Éng</span>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default function Home() {
           height={80}
           waveColor="#1F509A"
           progressColor="#7695FF"
-          url="/ngocanh.tricuong/music.mp3"
+          url="/Phép_màu.m4a"
           onReady={onReady}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
