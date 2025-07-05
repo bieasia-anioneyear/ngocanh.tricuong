@@ -24,6 +24,8 @@ const PauseIcon = () => (
   </svg>
 )
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
+
 export default function Home() {
   const [wavesurfer, setWavesurfer] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -48,7 +50,7 @@ export default function Home() {
   return (
     <div className="mx-5 mt-5">
       <div className="max-w-[400px] mx-auto my-14">
-        <Image src="/photo.png" alt="music" width={1000} height={1000} />
+        <Image src={`${basePath}/photo.png`} alt="music" width={1000} height={1000} />
       </div>
 
       <div className="flex items-center">
@@ -61,7 +63,7 @@ export default function Home() {
         </button>
         <div className="ml-3 flex flex-col">
           <span>Phép màu</span>
-          <span className="text-sm text-gray-500">Ca sĩ: Ngọc Éng</span>
+          <span className="text-sm text-gray-500">Ca sĩ: Embe Ngọc Ánh</span>
         </div>
       </div>
 
@@ -73,7 +75,7 @@ export default function Home() {
           height={80}
           waveColor="#1F509A"
           progressColor="#7695FF"
-          url="/Phép_màu.m4a"
+          url={`${basePath}/Phép_màu.m4a`}
           onReady={onReady}
           onPlay={() => setIsPlaying(true)}
           onPause={() => setIsPlaying(false)}
