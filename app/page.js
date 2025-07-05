@@ -34,6 +34,9 @@ function formatTime(seconds) {
 }
 
 export default function Home() {
+  const [imgLoaded, setImgLoaded] = useState(false)
+  const [audioReady, setAudioReady] = useState(false)
+
   const [wavesurfer, setWavesurfer] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
@@ -44,7 +47,7 @@ export default function Home() {
     setWavesurfer(ws)
     setDurationSec(duration)
     setCurrentTimeSec(0)
-    setIsPlaying(false)
+    setAudioReady(true)
   }
 
   useEffect(() => {
@@ -62,49 +65,67 @@ export default function Home() {
 
   const onPlayPause = () => {
     wavesurfer && wavesurfer.playPause()
+    setIsPlaying((p) => !p)
   }
+
+  const allReady = imgLoaded && audioReady
 
   return (
     <div className="mx-5 mt-5">
-      <div className="max-w-[400px] mx-auto my-14">
-        <Image src={`${basePath}/photo.png`} alt="music" width={1000} height={1000} />
-      </div>
-
-      <div className="flex items-center">
-        <button
-          className="my-3 w-16 h-16 rounded-full bg-[#1F509A] flex items-center justify-center"
-          onClick={onPlayPause}
-          title="Play/Pause"
-        >
-          {isPlaying ? <PauseIcon /> : <PlayIcon />}
-        </button>
-        <div className="ml-3 flex flex-col">
-          <span>Phép màu</span>
-          <span className="text-sm text-gray-500">Ca sĩ: Embe Ngọc Ánh</span>
+      {!allReady && (
+        <div className="flex justify-center items-center h-[calc(100vh-20rem)]">
+          <div className="loader"></div>
         </div>
-      </div>
+      )}
 
-      <div className="relative">
-        <div className="dark:bg-black bg-white px-0.5 mr-2 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
-          {formatTime(currentTimeSec)} / {formatTime(durationSec)}
+      <div className={`transition-opacity duration-500 ${allReady ? 'opacity-100' : 'opacity-0'}`}>
+        <div className="max-w-[400px] mx-auto my-14">
+          <Image
+            src={`${basePath}/photo.png`}
+            alt="music"
+            width={1000}
+            height={1000}
+            priority
+            onLoadingComplete={() => setImgLoaded(true)}
+          />
         </div>
-        <WavesurferPlayer
-          height={80}
-          waveColor="#1F509A"
-          progressColor="#7695FF"
-          url={`${basePath}/Phép_màu.m4a`}
-          onReady={onReady}
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-          barWidth={3}
-          barGap={2}
-          minPxPerSec={10}
-          barRadius={3}
-          hideScrollbar={true}
-          cursorColor="transparent"
-          dragToSeek={true}
-          autoCenter={true}
-        />
+
+        <div className="flex items-center">
+          <button
+            className="my-3 w-16 h-16 rounded-full bg-[#1F509A] flex items-center justify-center"
+            onClick={onPlayPause}
+            title="Play/Pause"
+          >
+            {isPlaying ? <PauseIcon /> : <PlayIcon />}
+          </button>
+          <div className="ml-3 flex flex-col">
+            <span>Phép màu</span>
+            <span className="text-sm text-gray-500">Ca sĩ: Embe Ngọc Ánh</span>
+          </div>
+        </div>
+
+        <div className="relative">
+          <div className="dark:bg-black bg-white px-0.5 mr-2 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
+            {formatTime(currentTimeSec)} / {formatTime(durationSec)}
+          </div>
+          <WavesurferPlayer
+            height={80}
+            waveColor="#1F509A"
+            progressColor="#7695FF"
+            url={`${basePath}/Phép_màu.m4a`}
+            onReady={onReady}
+            onPlay={() => setIsPlaying(true)}
+            onPause={() => setIsPlaying(false)}
+            barWidth={3}
+            barGap={2}
+            minPxPerSec={10}
+            barRadius={3}
+            hideScrollbar={true}
+            cursorColor="transparent"
+            dragToSeek={true}
+            autoCenter={true}
+          />
+        </div>
       </div>
     </div>
   )
