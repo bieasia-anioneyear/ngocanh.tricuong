@@ -1,8 +1,9 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import Image from 'next/image'
 import WavesurferPlayer from '@wavesurfer/react'
-import { useState } from 'react'
 
 const PlayIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
@@ -26,22 +27,38 @@ const PauseIcon = () => (
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60)
+  const s = Math.floor(seconds % 60)
+  return `${m}:${s.toString().padStart(2, '0')}`
+}
+
 export default function Home() {
   const [wavesurfer, setWavesurfer] = useState(null)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [duration, setDuration] = useState(null)
 
-  const convertedDuration = (duration) => {
-    const minutes = Math.floor(duration / 60)
-    const seconds = Math.floor(duration % 60)
-    return `${minutes}:${seconds}`
-  }
+  const [durationSec, setDurationSec] = useState(0)
+  const [currentTimeSec, setCurrentTimeSec] = useState(0)
 
   const onReady = (ws, duration) => {
     setWavesurfer(ws)
+    setDurationSec(duration)
+    setCurrentTimeSec(0)
     setIsPlaying(false)
-    setDuration(convertedDuration(duration))
   }
+
+  useEffect(() => {
+    if (!wavesurfer) return
+
+    const handler = (time) => {
+      setCurrentTimeSec(time)
+    }
+    wavesurfer.on('audioprocess', handler)
+
+    return () => {
+      wavesurfer.un('audioprocess', handler)
+    }
+  }, [wavesurfer])
 
   const onPlayPause = () => {
     wavesurfer && wavesurfer.playPause()
@@ -69,7 +86,7 @@ export default function Home() {
 
       <div className="relative">
         <div className="dark:bg-black bg-white px-0.5 mr-2 absolute top-1/2 transform -translate-y-1/2 right-0 z-10">
-          {duration}
+          {formatTime(currentTimeSec)} / {formatTime(durationSec)}
         </div>
         <WavesurferPlayer
           height={80}
